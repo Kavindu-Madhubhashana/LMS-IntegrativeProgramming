@@ -10,5 +10,4 @@ public class LmsApplication {
 		System.out.println("Hello From SF PRO");
 		SpringApplication.run(LmsApplication.class, args);
 	}
-
 }
