@@ -28,4 +28,7 @@ public class Course {
     private Date startDate;
 
     private Date endDate;
+
+    @ManyToOne
+    private CourseCategory courseCategory;
 }
