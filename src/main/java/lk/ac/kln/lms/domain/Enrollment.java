@@ -1,9 +1,6 @@
 package lk.ac.kln.lms.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
@@ -25,4 +22,7 @@ public class Enrollment {
     private Boolean cancelled;
 
     private String cancellationReason;
+
+    @ManyToOne
+    private Student student;
 }

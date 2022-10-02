@@ -18,6 +18,8 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    private String courseCode;
+
     @Column(name = "name")
     private String courseName;
 
@@ -26,4 +28,7 @@ public class Course {
     private Date startDate;
 
     private Date endDate;
+
+    @ManyToOne
+    private CourseCategory courseCategory;
 }
