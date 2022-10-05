@@ -21,4 +21,6 @@ public class CreateCourseDto {
 
     private Date endDate;
 
+    private String courseCategory;
+
 }
