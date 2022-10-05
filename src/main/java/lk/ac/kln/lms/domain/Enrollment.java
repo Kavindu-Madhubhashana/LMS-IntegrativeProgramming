@@ -1,12 +1,11 @@
 package lk.ac.kln.lms.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Data
 @Setter
 @Getter
 @NoArgsConstructor
@@ -25,4 +24,7 @@ public class Enrollment {
 
     @ManyToOne
     private Student student;
+
+    @ManyToOne
+    private Course course;
 }
