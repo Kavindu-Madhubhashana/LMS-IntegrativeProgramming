@@ -1,12 +1,11 @@
 package lk.ac.kln.lms.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString

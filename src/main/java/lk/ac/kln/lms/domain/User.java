@@ -1,7 +1,8 @@
 package lk.ac.kln.lms.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 @Data
 @Entity
