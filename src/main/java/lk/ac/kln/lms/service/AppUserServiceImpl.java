@@ -1,6 +1,5 @@
 package lk.ac.kln.lms.service;
 
-import jakarta.transaction.Transactional;
 import lk.ac.kln.lms.domain.AppUser;
 import lk.ac.kln.lms.domain.Role;
 import lk.ac.kln.lms.repo.AppUserRepo;
@@ -8,16 +7,18 @@ import lk.ac.kln.lms.repo.RoleRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service @RequiredArgsConstructor @Transactional @Slf4j
+@Service @RequiredArgsConstructor @Transactional
+@Slf4j
 public class AppUserServiceImpl implements AppUserService {
     private final AppUserRepo userRepo;
     private final RoleRepo roleRepo;
     @Override
     public AppUser saveUser(AppUser user) {
-        //return userRepo;
+        return  null;
     }
 
     @Override
