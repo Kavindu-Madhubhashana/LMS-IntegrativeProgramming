@@ -1,6 +1,7 @@
 package lk.ac.kln.lms.service;
 
 import lk.ac.kln.lms.domain.CourseCategory;
+import lk.ac.kln.lms.dto.CreateCourseCategoryDto;
 import lk.ac.kln.lms.dto.UpdateCourseCategoryDto;
 import lk.ac.kln.lms.repo.CourseCategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +22,26 @@ public class CourseCategoryServiceImpl implements CourseCategoryService{
 
     @Override
     public Optional<CourseCategory> getCourseCategoryByCategoryName(String categoryName) {
-        Optional<CourseCategory> courseCategory = courseCategoryRepo.findByCourseCategory(categoryName);
-        System.out.println(courseCategory);
-        if(courseCategory.isPresent()) {
-            return courseCategory;
+        return courseCategoryRepo.findByCourseCategory(categoryName);
+    }
+
+    @Override
+    public Boolean updateCourseCategory(UpdateCourseCategoryDto courseCategoryInfo) {
+        Optional<CourseCategory> foundCourseCategory = this.courseCategoryRepo.findById(courseCategoryInfo.getId());
+        if(foundCourseCategory.isEmpty()) {
+            return false;
         }
-        return Optional.empty();
+        foundCourseCategory = this.courseCategoryRepo.findByCourseCategory(courseCategoryInfo.getCourseCategory());
+        if(foundCourseCategory.isPresent()) {
+            return false;
+        }
+        CourseCategory courseCategory = new CourseCategory(courseCategoryInfo.getId(), courseCategoryInfo.getCourseCategory());
+        CourseCategory updatedCourseCategory = this.courseCategoryRepo.save(courseCategory);
+        return true;
     }
 
     @Override
-    public Boolean updateCourseCategory(int courseCategoryId, UpdateCourseCategoryDto courseCategoryInfo) {
-        return null;
-    }
-
-    @Override
-    public Optional<CourseCategory> saveCourseCategory(UpdateCourseCategoryDto courseCategoryInfo) {
+    public Optional<CourseCategory> saveCourseCategory(CreateCourseCategoryDto courseCategoryInfo) {
         Optional<CourseCategory> foundCourseCategory = this.courseCategoryRepo.findByCourseCategory(courseCategoryInfo.getCourseCategory());
         if(foundCourseCategory.isEmpty()) {
             CourseCategory courseCategory = new CourseCategory();

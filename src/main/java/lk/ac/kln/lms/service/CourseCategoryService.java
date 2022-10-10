@@ -1,6 +1,7 @@
 package lk.ac.kln.lms.service;
 
 import lk.ac.kln.lms.domain.CourseCategory;
+import lk.ac.kln.lms.dto.CreateCourseCategoryDto;
 import lk.ac.kln.lms.dto.UpdateCourseCategoryDto;
 
 import java.util.Optional;
@@ -11,9 +12,9 @@ public interface CourseCategoryService {
 
     Optional<CourseCategory> getCourseCategoryByCategoryName(final String categoryName);
 
-    Boolean updateCourseCategory(final int courseCategoryId, final UpdateCourseCategoryDto courseCategoryInfo);
+    Boolean updateCourseCategory(final UpdateCourseCategoryDto courseCategoryInfo);
 
-    Optional<CourseCategory> saveCourseCategory(final UpdateCourseCategoryDto courseCategoryInfo);
+    Optional<CourseCategory> saveCourseCategory(final CreateCourseCategoryDto courseCategoryInfo);
 
     Boolean removeCourseCategory(final int courseCategoryId);
 }

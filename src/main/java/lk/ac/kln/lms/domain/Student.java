@@ -2,10 +2,9 @@ package lk.ac.kln.lms.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Data
 @Entity
@@ -19,5 +18,12 @@ public class Student extends User{
     private Date birthDate;
 
     private String phoneNumber;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private Set<Course> courses;
 
 }

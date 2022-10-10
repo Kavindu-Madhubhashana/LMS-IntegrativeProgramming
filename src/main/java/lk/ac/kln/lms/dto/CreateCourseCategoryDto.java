@@ -7,10 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UpdateCourseCategoryDto {
-
-    private Long id;
-
+public class CreateCourseCategoryDto {
     private String courseCategory;
-
 }
