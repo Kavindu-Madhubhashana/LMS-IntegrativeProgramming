@@ -8,6 +8,7 @@ public class LmsApplication {
 
 	public static void main(String[] args) {
 		System.out.println("Hello From SF PRO");
+		//System.out.println("Hello From SF PRO");
 		SpringApplication.run(LmsApplication.class, args);
 	}
 }
