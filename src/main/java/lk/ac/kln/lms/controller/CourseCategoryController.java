@@ -2,6 +2,7 @@ package lk.ac.kln.lms.controller;
 
 import lk.ac.kln.lms.domain.CourseCategory;
 import lk.ac.kln.lms.dto.CreateCourseCategoryDto;
+import lk.ac.kln.lms.dto.GetCourseCategoryDto;
 import lk.ac.kln.lms.dto.UpdateCourseCategoryDto;
 import lk.ac.kln.lms.service.CourseCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,7 @@ public class CourseCategoryController {
     }
 
     @GetMapping("name")
-    public ResponseEntity<Optional<CourseCategory>> getCourseCategoryByCategoryName(@RequestBody String categoryName) {
-        System.out.println(categoryName);
+    public ResponseEntity<Optional<CourseCategory>> getCourseCategoryByCategoryName(@RequestBody GetCourseCategoryDto categoryName) {
         return new ResponseEntity<>(courseCategoryService.getCourseCategoryByCategoryName(categoryName), HttpStatus.ACCEPTED);
     }
 
@@ -45,6 +45,13 @@ public class CourseCategoryController {
             return new ResponseEntity<>(true, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("delete")
+    public ResponseEntity<Boolean> removeCourseCategory(@RequestBody GetCourseCategoryDto categoryName) {
+        System.out.println("Hello");
+        System.out.println(categoryName.getCategoryName());
+        return new ResponseEntity<>(courseCategoryService.removeCourseCategory(categoryName), HttpStatus.ACCEPTED);
     }
 
 }

@@ -13,6 +13,8 @@ import java.sql.Date;
 @Setter
 public class UpdateCourseDto {
 
+    private Long courseId;
+
     private String courseCode;
 
     private String courseName;
@@ -23,4 +25,5 @@ public class UpdateCourseDto {
 
     private Date endDate;
 
+    private Long courseCategoryId;
 }

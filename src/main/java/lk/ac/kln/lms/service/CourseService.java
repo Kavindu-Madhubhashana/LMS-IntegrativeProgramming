@@ -2,6 +2,8 @@ package lk.ac.kln.lms.service;
 
 import lk.ac.kln.lms.domain.Course;
 import lk.ac.kln.lms.dto.CreateCourseDto;
+import lk.ac.kln.lms.dto.DeleteCourseDto;
+import lk.ac.kln.lms.dto.GetCourseDto;
 import lk.ac.kln.lms.dto.UpdateCourseDto;
 
 import java.util.Optional;
@@ -12,9 +14,11 @@ public interface CourseService {
 
     Optional<Course> getCourseById(final String id);
 
-    Optional<Course> updateCourseById(final String code, final UpdateCourseDto updatedCourse);
+    Optional<Course> getCourseByCourseCode(final GetCourseDto courseCode);
 
-    Boolean removeCourseById(final int id);
+    Course updateCourseById(final UpdateCourseDto updatedCourse);
 
-    Optional<Course> saveCourse(final CreateCourseDto course);
+    Boolean removeCourseById(final DeleteCourseDto courseDto);
+
+    Course saveCourse(final CreateCourseDto course);
 }

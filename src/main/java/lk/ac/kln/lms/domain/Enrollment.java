@@ -22,9 +22,9 @@ public class Enrollment {
 
     private String cancellationReason;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Course course;
 }
