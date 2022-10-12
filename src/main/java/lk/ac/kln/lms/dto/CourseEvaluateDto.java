@@ -6,17 +6,16 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-
 @Repository
 public interface CourseEvaluateDto extends CrudRepository<CourseEvaluate, MyKey> {
     @Transactional
     @Modifying
-    @Query(value = "UPDATE user_course SET marks = :marks WHERE  user_email = :userEmail AND course_id = :courseId", nativeQuery = true)
-    Integer addMarks(String userEmail, String courseId, String marks);
+    @Query(value = "UPDATE user_evaluate SET marks = :marks WHERE  student_id = :studentID AND course_id = :courseId", nativeQuery = true)
+    Integer addMarks(String studentID, String courseId, String marks);
 
-    @Query(value = "SELECT * FROM jwt_demo.user_course WHERE user_email = :userEmail", nativeQuery = true)
-    List<CourseEvaluate> getMarks(String userEmail);
+    @Query(value = "SELECT * FROM jwt_demo.user_evaluate WHERE student_id = :studentID", nativeQuery = true)
+    List<CourseEvaluate> getMarks(String studentID);
 
-    @Query(value = "SELECT * FROM jwt_demo.user_course WHERE course_id = :courseId", nativeQuery = true)
+    @Query(value = "SELECT * FROM jwt_demo.user_evaluate WHERE student_id = :studentID", nativeQuery = true)
     List<CourseEvaluate> getSubjects(String courseId);
 }

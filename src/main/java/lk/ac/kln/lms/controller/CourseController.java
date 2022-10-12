@@ -1,5 +1,6 @@
 package lk.ac.kln.lms.controller;
 
+import lk.ac.kln.lms.domain.CourseEvaluate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,5 @@ public class CourseController {
         courses.add("Object Oriented Programming");
         return new ResponseEntity<>(courses, HttpStatus.ACCEPTED);
     }
-
 
 }

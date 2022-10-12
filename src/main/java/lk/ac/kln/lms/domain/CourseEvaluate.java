@@ -8,7 +8,7 @@ import lk.ac.kln.lms.dto.MyKey;
 public class CourseEvaluate {
     @Id
     @Column(length = 20)
-    private String userID;
+    private String studentID;
 
     @Id
     @Column(length = 10)
@@ -16,12 +16,12 @@ public class CourseEvaluate {
 
     private String marks;
 
-    public String getUserEmail() {
-        return userID;
+    public String getStudentID() {
+        return studentID;
     }
 
-    public void setUserEmail(String userID) {
-        this.userID = userID;
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
     }
 
     public String getCourseId() {
