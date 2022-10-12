@@ -21,4 +21,6 @@ public class CourseController {
         courses.add("Object Oriented Programming");
         return new ResponseEntity<>(courses, HttpStatus.ACCEPTED);
     }
+
+
 }
