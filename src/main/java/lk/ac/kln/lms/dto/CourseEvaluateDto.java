@@ -15,7 +15,7 @@ public interface CourseEvaluateDto extends CrudRepository<CourseEvaluate, MyKey>
 
     @Query(value = "SELECT * FROM jwt_demo.user_evaluate WHERE student_id = :studentID", nativeQuery = true)
     List<CourseEvaluate> getMarks(String studentID);
-
+        //StudentEmail
     @Query(value = "SELECT * FROM jwt_demo.user_evaluate WHERE student_id = :studentID", nativeQuery = true)
     List<CourseEvaluate> getSubjects(String courseId);
 }
