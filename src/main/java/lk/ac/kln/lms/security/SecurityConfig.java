@@ -1,6 +1,7 @@
 package lk.ac.kln.lms.security;
 
 import lk.ac.kln.lms.filter.CustomAuthenticationFilter;
+import lk.ac.kln.lms.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import static org.springframework.http.HttpMethod.GET;
+
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
@@ -26,10 +29,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().anyRequest().permitAll();
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();
+
+        //http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests().antMatchers(GET, "/api/user").hasAuthority("ROLE_STUDENT");
+        //http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAuthority("ROLE_ADMIN");
+        http.authorizeRequests().anyRequest().authenticated();
+        http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), CustomAuthenticationFilter.class);
     }
 
     @Bean
