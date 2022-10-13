@@ -2,6 +2,7 @@ package lk.ac.kln.lms.filter;
 
 
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -51,7 +53,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withExpiresAt(new java.util.Date(System.currentTimeMillis() + 30 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
-        response.setHeader("access_token", access_token);
-        response.setHeader("refresh_token", refresh_token);
+        //response.setHeader("access_token", access_token);
+        //response.setHeader("refresh_token", refresh_token);
+        Map<String, String> tokens = Map.of("access_token", access_token, "refresh_token", refresh_token);
+        response.setContentType("application/json");
+        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }
