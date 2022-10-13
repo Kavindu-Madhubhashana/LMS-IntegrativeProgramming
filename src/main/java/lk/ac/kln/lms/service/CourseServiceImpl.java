@@ -32,8 +32,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Optional<Course> getCourseById(String code) {
-        return courseRepo.findByCourseCode(code);
+    public Optional<Course> getCourseById(Long code) {
+        return courseRepo.findById(code);
     }
 
     @Override

@@ -12,7 +12,7 @@ public interface CourseService {
 
     Iterable<Course> allCourses();
 
-    Optional<Course> getCourseById(final String id);
+    Optional<Course> getCourseById(final Long id);
 
     Optional<Course> getCourseByCourseCode(final GetCourseDto courseCode);
 

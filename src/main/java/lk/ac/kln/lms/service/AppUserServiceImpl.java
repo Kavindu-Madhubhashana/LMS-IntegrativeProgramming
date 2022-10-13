@@ -6,15 +6,21 @@ import lk.ac.kln.lms.repo.AppUserRepo;
 import lk.ac.kln.lms.repo.RoleRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service @RequiredArgsConstructor @Transactional
 @Slf4j
 public class AppUserServiceImpl implements AppUserService {
+
+    @Autowired
     private final AppUserRepo userRepo;
+
+    @Autowired
     private final RoleRepo roleRepo;
     @Override
     public AppUser saveUser(AppUser user) {
@@ -39,5 +45,10 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public List<AppUser> getUsers() {
         return null;
+    }
+
+    @Override
+    public Optional<AppUser> getAppUserById(Long id) {
+        return userRepo.findById(id);
     }
 }

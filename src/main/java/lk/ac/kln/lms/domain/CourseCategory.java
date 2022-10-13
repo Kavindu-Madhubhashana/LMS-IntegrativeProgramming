@@ -11,6 +11,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class CourseCategory {
 
+    //course_category
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

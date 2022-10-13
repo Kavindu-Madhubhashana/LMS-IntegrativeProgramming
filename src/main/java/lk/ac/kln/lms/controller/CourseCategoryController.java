@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+//http://localhost:8080/coursecategory
+
+// GET
+// POST
+// DELETE
+
 @Controller
 @RequestMapping("/coursecategory")
 public class CourseCategoryController {
@@ -26,6 +32,7 @@ public class CourseCategoryController {
     }
 
     @GetMapping("name")
+    //coursec.../name
     public ResponseEntity<Optional<CourseCategory>> getCourseCategoryByCategoryName(@RequestBody GetCourseCategoryDto categoryName) {
         return new ResponseEntity<>(courseCategoryService.getCourseCategoryByCategoryName(categoryName), HttpStatus.ACCEPTED);
     }
