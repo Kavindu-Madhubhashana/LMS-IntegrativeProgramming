@@ -2,9 +2,7 @@ package lk.ac.kln.lms.controller;
 
 
 import lk.ac.kln.lms.domain.Announcements;
-import lk.ac.kln.lms.domain.Course;
 import lk.ac.kln.lms.dto.AnnouncementsDto;
-import lk.ac.kln.lms.dto.CreateCourseDto;
 import lk.ac.kln.lms.service.AnnouncementsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
