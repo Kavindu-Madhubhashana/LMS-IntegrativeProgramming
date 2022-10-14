@@ -11,4 +11,8 @@ public interface CourseCategoryRepo extends CrudRepository<CourseCategory, Long>
 
     Optional<CourseCategory> findByName(String categoryName);
 
+    //Get ALL
+    // GEtById
+    //Save
+
 }

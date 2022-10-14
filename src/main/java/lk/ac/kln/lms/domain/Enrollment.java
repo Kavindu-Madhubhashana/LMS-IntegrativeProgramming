@@ -1,6 +1,10 @@
 package lk.ac.kln.lms.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -23,7 +27,7 @@ public class Enrollment {
     private String cancellationReason;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Student student;
+    private AppUser student;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Course course;

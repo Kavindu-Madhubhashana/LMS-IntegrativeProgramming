@@ -6,4 +6,7 @@ Technologies -
 * JWT Authentication
 * MySQL
 
-
+EntityClass
+Repository
+Service
+Controller
