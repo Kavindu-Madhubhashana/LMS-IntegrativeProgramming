@@ -1,6 +1,5 @@
 package lk.ac.kln.lms.controller;
 
-
 import lk.ac.kln.lms.domain.Announcements;
 import lk.ac.kln.lms.dto.AnnouncementsDto;
 import lk.ac.kln.lms.service.AnnouncementsService;
@@ -15,14 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/announcements")
 public class AnnouncementsController {
+    /*@Autowired
+    private CourseService courseService;
+
+    @GetMapping("/save")
+    public  ResponseEntity<Iterable<Course>>  save(){
+        return new ResponseEntity<>(courseService.allCourses(), HttpStatus.ACCEPTED);
+    }*/
 
     @Autowired
     private AnnouncementsService announcementsService;
 
-    @PostMapping("/saveannouncement")
-    public ResponseEntity<Announcements> saveAnnouncement(@RequestBody AnnouncementsDto announcementInfo) {
-        return new ResponseEntity<>(this.announcementsService.saveAnnouncement(announcementInfo), HttpStatus.ACCEPTED);
+    @PostMapping("/save")
+    public ResponseEntity<Announcements> saveCourse(@RequestBody AnnouncementsDto announcement) {
+        return new ResponseEntity<>(this.announcementsService.saveAnnouncement(announcement), HttpStatus.ACCEPTED);
     }
+
+    @PostMapping("/view")
+    public ResponseEntity<Iterable<Announcements>>getAnnouncementsByCourseCode(@RequestBody AnnouncementsDto announcement){
+        return new ResponseEntity<>(announcementsService.getAnnouncementsByCourseCode(announcement),HttpStatus.ACCEPTED);
+    }
+
 
 
 }
