@@ -28,6 +28,7 @@ public class Course {
 
     private Date endDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private CourseCategory courseCategory;
+
 }
