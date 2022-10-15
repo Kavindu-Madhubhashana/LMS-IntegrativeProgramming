@@ -36,6 +36,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/api/v1/user/save").permitAll();
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();
 
+        //create, update and delete course only for lecturer
+        http.authorizeRequests().antMatchers("/coursecategory/create/**").hasAuthority("ROLE_TEACHER");
+        http.authorizeRequests().antMatchers("/coursecategory/update/**").hasAuthority("ROLE_TEACHER");
+        http.authorizeRequests().antMatchers("/coursecategory/delete/**").hasAuthority("ROLE_TEACHER");
+
+        //getting all courses and course by id for all users
+        http.authorizeRequests().antMatchers("/course").permitAll();
+        http.authorizeRequests().antMatchers("/course/code").permitAll();
+
         //http.authorizeRequests().anyRequest().permitAll();
         http.authorizeRequests().antMatchers(GET, "/api/user").hasAuthority("ROLE_STUDENT");
         //http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAuthority("ROLE_ADMIN");
