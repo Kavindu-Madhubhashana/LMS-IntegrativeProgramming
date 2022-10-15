@@ -26,6 +26,7 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private final CourseCategoryService courseCategoryService;
 
+
     @Override
     public Iterable<Course> allCourses() {
         return courseRepo.findAll();
@@ -89,18 +90,20 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course saveCourse(CreateCourseDto course) {
+    public Optional<Course> saveCourse(CreateCourseDto course) {
 
         Optional<CourseCategory> foundCourseCategory = this.courseCategoryService.getCourseCategoryById(course.getCourseCategoryId());
 
         if(foundCourseCategory.isEmpty()) {
-            return new Course();
+            System.out.println("Not Found Category");
+            return Optional.empty();
         }
         
         Optional<Course> foundCourse = this.courseRepo.findByCourseCode(course.getCourseCode());
         
         if(foundCourse.isPresent()) {
-            return new Course();
+            System.out.println("Course already exists");
+            return Optional.empty();
         }
         
         Course newCourse = new Course();
@@ -110,7 +113,9 @@ public class CourseServiceImpl implements CourseService {
         newCourse.setDescription(course.getDescription());
         newCourse.setStartDate(course.getStartDate());
         newCourse.setEndDate(course.getEndDate());
+
+        Course savedCourse = this.courseRepo.save(newCourse);
         
-        return this.courseRepo.save(newCourse);
+        return Optional.of(savedCourse);
     }
 }
