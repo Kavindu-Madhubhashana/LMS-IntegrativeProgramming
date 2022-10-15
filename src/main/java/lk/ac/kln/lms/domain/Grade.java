@@ -2,6 +2,7 @@ package lk.ac.kln.lms.domain;
 
 import lombok.*;
 
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -25,7 +26,7 @@ public class Grade {
     @OneToOne(fetch = FetchType.EAGER)
     private Course course;
 
-
+    //private AppUser Student;
 }
 
 
