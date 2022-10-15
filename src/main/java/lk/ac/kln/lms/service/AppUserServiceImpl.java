@@ -71,6 +71,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("user = " + username);
         AppUser user = userRepo.findByUsername(username);
         if(user == null) {
             log.error("User not found in the database");
