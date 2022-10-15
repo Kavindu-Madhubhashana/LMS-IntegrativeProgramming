@@ -32,9 +32,18 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     @Override
     public AppUser saveUser(AppUser user) {
-        log.info("Saving new user {} to the database", user.getName());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepo.save(user);
+        //check if the user already exists
+        boolean exists = userRepo.existsByUsername(user.getUsername());
+        log.info("User already exists: {}", exists);
+
+        if (exists) {
+            throw new IllegalStateException("Username already exists");
+        }
+        else{
+            log.info("Saving new user {} to the database", user.getName());
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return userRepo.save(user);
+        }
     }
 
     @Override
