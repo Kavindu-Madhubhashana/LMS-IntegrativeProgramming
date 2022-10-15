@@ -30,4 +30,5 @@ public class Course {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private CourseCategory courseCategory;
+
 }
