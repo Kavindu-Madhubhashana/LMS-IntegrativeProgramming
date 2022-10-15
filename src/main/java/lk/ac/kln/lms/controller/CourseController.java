@@ -22,7 +22,7 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @GetMapping("")
+    @PostMapping("")
     public ResponseEntity<Iterable<Course>> getAllCourses() {
 
         return new ResponseEntity<>(courseService.allCourses(), HttpStatus.ACCEPTED);
@@ -33,7 +33,7 @@ public class CourseController {
         return new ResponseEntity<>(courseService.getCourseByCourseCode(courseCode), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("")
+    @PostMapping("save")
     public ResponseEntity<Optional<Course>> saveCourse(@RequestBody CreateCourseDto courseInfo) {
 
         Optional<Course> savedCourse = this.courseService.saveCourse(courseInfo);
