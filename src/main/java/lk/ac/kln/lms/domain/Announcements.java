@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "announcements")
@@ -19,11 +19,11 @@ public class Announcements {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "user_id")
-    private String userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private AppUser lecturer;
 
-    @Column(name = "course_id")
-    private String courseId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Course course;
 
     @Column(name = "date")
     private Date date;
