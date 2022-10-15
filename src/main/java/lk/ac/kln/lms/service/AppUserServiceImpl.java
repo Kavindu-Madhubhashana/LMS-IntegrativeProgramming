@@ -63,8 +63,10 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public AppUser getUser(String username) {
-        log.info("Fetching user {}", username);
-        return null;
+        Optional<AppUser> foundUser = Optional.of(userRepo.findByUsername(username));
+        if(foundUser.isPresent()) {
+            return foundUser.get();
+        } else throw new IllegalStateException("User not found");
     }
 
     @Override

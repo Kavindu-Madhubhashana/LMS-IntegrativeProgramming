@@ -5,6 +5,7 @@ import lk.ac.kln.lms.dto.CreateCourseCategoryDto;
 import lk.ac.kln.lms.dto.GetCourseCategoryDto;
 import lk.ac.kln.lms.dto.UpdateCourseCategoryDto;
 import lk.ac.kln.lms.service.CourseCategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-//http://localhost:8080/coursecategory
-
-// GET
-// POST
-// DELETE
-
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @Controller
 @RequestMapping("/coursecategory")
+@Slf4j
 public class CourseCategoryController {
 
     @Autowired
@@ -39,6 +36,7 @@ public class CourseCategoryController {
 
     @PostMapping("create")
     public ResponseEntity<Optional<CourseCategory>> saveCourseCategory(@RequestBody CreateCourseCategoryDto courseCategoryInfo) {
+        log.info(courseCategoryInfo.toString());
         Optional<CourseCategory> createdCourseCategory = courseCategoryService.saveCourseCategory(courseCategoryInfo);
         if(createdCourseCategory.isEmpty()){
             return new ResponseEntity<>(createdCourseCategory, HttpStatus.CONFLICT);
