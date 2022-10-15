@@ -4,7 +4,7 @@ import lk.ac.kln.lms.dto.MyKey;
 
 @Entity(name = "courseEvaluate")
 @IdClass(MyKey.class)
-
+//ggg
 public class CourseEvaluate {
     @Id
     @Column(length = 20)
