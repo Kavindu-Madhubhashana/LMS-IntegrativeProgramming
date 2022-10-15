@@ -26,7 +26,7 @@ public class Grade {
     @OneToOne(fetch = FetchType.EAGER)
     private Course course;
 
-    //private AppUser Student;
+   //private AppUser user;
 }
 
 
