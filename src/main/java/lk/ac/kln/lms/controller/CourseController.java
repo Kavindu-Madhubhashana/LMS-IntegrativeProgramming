@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @Controller
-@RequestMapping("/course")
+@RequestMapping("/api/v1/course")
 public class CourseController {
 
     @Autowired
@@ -33,8 +34,14 @@ public class CourseController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Course> saveCourse(@RequestBody CreateCourseDto courseInfo) {
-        return new ResponseEntity<>(this.courseService.saveCourse(courseInfo), HttpStatus.ACCEPTED);
+    public ResponseEntity<Optional<Course>> saveCourse(@RequestBody CreateCourseDto courseInfo) {
+
+        Optional<Course> savedCourse = this.courseService.saveCourse(courseInfo);
+
+        if(savedCourse.isPresent()) {
+            return new ResponseEntity<>(this.courseService.saveCourse(courseInfo), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(this.courseService.saveCourse(courseInfo), HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("")

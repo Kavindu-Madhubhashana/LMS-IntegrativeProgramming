@@ -20,5 +20,5 @@ public interface CourseService {
 
     Boolean removeCourseById(final DeleteCourseDto courseDto);
 
-    Course saveCourse(final CreateCourseDto course);
+    Optional<Course> saveCourse(final CreateCourseDto course);
 }

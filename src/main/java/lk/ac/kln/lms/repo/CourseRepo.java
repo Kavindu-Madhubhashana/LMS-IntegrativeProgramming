@@ -1,5 +1,6 @@
 package lk.ac.kln.lms.repo;
 
+import lk.ac.kln.lms.domain.AppUser;
 import lk.ac.kln.lms.domain.Course;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
