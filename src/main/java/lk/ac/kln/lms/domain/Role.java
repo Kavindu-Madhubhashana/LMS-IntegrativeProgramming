@@ -1,5 +1,6 @@
 package lk.ac.kln.lms.domain;
 
+import lk.ac.kln.lms.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,5 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    private RoleEnum name;
 }
