@@ -13,5 +13,6 @@ import lombok.Setter;
 public class GetEvaluationsDto {
 
     private Long studentId;
+    private Long lectuerId;
 
 }

@@ -53,7 +53,22 @@ public class EvaluationServiceImpl implements EvaluationService{
     }
 
     @Override
-    public Iterable<Evaluation> allEvaluationsByStudentID(GetEvaluationsDto studentId) {
-        return null;
+    public Iterable<Evaluation> allEvaluationsByStudentID(GetEvaluationsDto evaluationInfo) throws Exception {
+
+        Optional<AppUser> lecturer = appUserService.getAppUserById(evaluationInfo.getLectuerId());
+        if(lecturer.isEmpty()) {
+            throw new Exception("Teacher not found");
+        }
+
+        Optional<AppUser> student = appUserService.getAppUserById(evaluationInfo.getStudentId());
+
+        if(student.isEmpty()){
+            throw new Exception("Student not enrol to the Course");
+        }
+
+
+        return this.evaluationRepo.findByStudent(student);
+
+
     }
 }

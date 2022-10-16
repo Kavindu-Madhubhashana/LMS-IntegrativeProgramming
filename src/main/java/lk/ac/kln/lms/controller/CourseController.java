@@ -53,4 +53,5 @@ public class CourseController {
     public ResponseEntity<Boolean> removeCourse(@RequestBody DeleteCourseDto courseId) {
         return new ResponseEntity<>(this.courseService.removeCourseById(courseId), HttpStatus.ACCEPTED);
     }
+
 }
