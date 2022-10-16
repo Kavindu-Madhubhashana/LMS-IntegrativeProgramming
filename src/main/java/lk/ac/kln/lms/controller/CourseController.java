@@ -1,7 +1,5 @@
 package lk.ac.kln.lms.controller;
 
-import lk.ac.kln.lms.domain.CourseEvaluate;
-
 import lk.ac.kln.lms.domain.Course;
 import lk.ac.kln.lms.dto.CreateCourseDto;
 import lk.ac.kln.lms.dto.DeleteCourseDto;
