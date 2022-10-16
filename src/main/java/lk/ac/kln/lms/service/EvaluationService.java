@@ -10,6 +10,6 @@ public interface EvaluationService {
 
     Optional<Evaluation> makeEvaluation(CreateEvaluationDto evaluationInfo) throws Exception;
 
-    Optional<Evaluation> allEvaluationsByStudentID(GetEvaluationsDto studentId) throws Exception;
+    Iterable<Evaluation> allEvaluationsByStudentID(GetEvaluationsDto studentId) throws Exception;
 
 }

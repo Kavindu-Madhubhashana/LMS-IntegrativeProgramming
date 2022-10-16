@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface EvaluationRepo extends CrudRepository<Evaluation, Long> {
 
-    Iterable<Evaluation> findByStudent(final AppUser student);
+    Iterable<Evaluation> findByStudent(final Optional<AppUser> student);
 
 }

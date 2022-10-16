@@ -55,11 +55,11 @@ public class LmsApplication {
 			teacherRole.add(RoleEnum.ROLE_TEACHER);
 
 			userService.saveUser(new RegisterUserDto( "IM/2018/087", "Shamika Tissera", "shamika", "1234","shamika@gmail.com", studentRoles));
-//			userService.saveUser(new RegisterUserDto("IM/2018/000", "Sithum Basnayake", "sithum", "1234","sithum@gmail.com", teacherRole));
-//			userService.saveUser(new RegisterUserDto("IM/2018/001", "Malithi Karunarathne", "malithi", "1234","malithi@gmail.com", teacherWithAdminRole));
-//			userService.saveUser(new RegisterUserDto("IM/2018/002", "Pavith Rajapakse", "pavith", "1234", "pavith@gmail.com", adminRole));
-//			userService.saveUser(new RegisterUserDto( "IM/2018/003", "Kavindu Madhubashana", "kavindu", "1234", "kavindu@gmail.com", studentRoles));
-//			userService.saveUser(new RegisterUserDto( "IM/2018/004", "Tharindu Senanayake", "tharindu", "1234", "tharindu@gmail.com", adminRole));
+			userService.saveUser(new RegisterUserDto("IM/2018/000", "Sithum Basnayake", "sithum", "1234","sithum@gmail.com", teacherRole));
+			userService.saveUser(new RegisterUserDto("IM/2018/001", "Malithi Karunarathne", "malithi", "1234","malithi@gmail.com", teacherWithAdminRole));
+			userService.saveUser(new RegisterUserDto("IM/2018/002", "Pavith Rajapakse", "pavith", "1234", "pavith@gmail.com", adminRole));
+			userService.saveUser(new RegisterUserDto( "IM/2018/003", "Kavindu Madhubashana", "kavindu", "1234", "kavindu@gmail.com", studentRoles));
+			userService.saveUser(new RegisterUserDto( "IM/2018/004", "Tharindu Senanayake", "tharindu", "1234", "tharindu@gmail.com", adminRole));
 
 			Optional<CourseCategory> IT = courseCategoryService.saveCourseCategory(new CreateCourseCategoryDto("IT"));
 			courseCategoryService.saveCourseCategory(new CreateCourseCategoryDto("MGMT"));
