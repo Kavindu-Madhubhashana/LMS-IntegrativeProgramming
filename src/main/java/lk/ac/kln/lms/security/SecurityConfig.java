@@ -1,5 +1,6 @@
 package lk.ac.kln.lms.security;
 
+import lk.ac.kln.lms.enums.RoleEnum;
 import lk.ac.kln.lms.filter.CustomAuthenticationFilter;
 import lk.ac.kln.lms.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.List;
 
-import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
@@ -54,8 +55,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/api/v1/user/save").permitAll();
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();
 
+        //Routes for courses
+        http.authorizeRequests().antMatchers(GET, "/api/v1/course/**").permitAll();
+        http.authorizeRequests().antMatchers(PUT, "/api/v1/course/**").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/api/v1/course/**").hasAnyAuthority(RoleEnum.ROLE_TEACHER.name());
+        http.authorizeRequests().antMatchers(DELETE, "/api/v1/course/**").hasAnyAuthority(RoleEnum.ROLE_TEACHER.name());
+
+        http.authorizeRequests().antMatchers(GET, "/coursecategory/**").permitAll();
+        http.authorizeRequests().antMatchers(PUT, "/coursecategory/**").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/coursecategory/**").permitAll();
+        http.authorizeRequests().antMatchers(DELETE, "/coursecategory/**").permitAll();
+
+        //Routes for announcements
+        http.authorizeRequests().antMatchers(POST, "/announcements/save").hasAnyAuthority(RoleEnum.ROLE_TEACHER.name());
+        http.authorizeRequests().antMatchers(POST, "/announcements/view").permitAll();
+
         //http.authorizeRequests().anyRequest().permitAll();
-        http.authorizeRequests().antMatchers(GET, "/api/user").hasAuthority("ROLE_STUDENT");
+        http.authorizeRequests().antMatchers(GET, "/api/user").permitAll();
         //http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
