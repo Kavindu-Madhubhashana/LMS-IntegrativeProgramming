@@ -2,6 +2,8 @@ package lk.ac.kln.lms.service;
 
 import lk.ac.kln.lms.domain.AppUser;
 import lk.ac.kln.lms.domain.Role;
+import lk.ac.kln.lms.dto.RegisterUserDto;
+import lk.ac.kln.lms.enums.RoleEnum;
 import lk.ac.kln.lms.repo.AppUserRepo;
 import lk.ac.kln.lms.repo.RoleRepo;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +33,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
     @Override
-    public AppUser saveUser(AppUser user) {
+    public AppUser saveUser(RegisterUserDto user) {
         //check if the user already exists
         boolean exists = userRepo.existsByUsername(user.getUsername());
         log.info("User already exists: {}", exists);
@@ -40,9 +42,18 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
             throw new IllegalStateException("Username already exists");
         }
         else{
+
+            AppUser newUser = new AppUser();
+            newUser.setEmail(user.getEmail());
+            newUser.setName(user.getName());
+            newUser.setUsername(user.getUsername());
+            newUser.setUserId(user.getUserId());
+
             log.info("Saving new user {} to the database", user.getName());
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            return userRepo.save(user);
+            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            AppUser savedUser = userRepo.save(newUser);
+            user.getRoles().forEach((RoleEnum role) -> this.addRoleToUser(newUser.getUsername(), role));
+            return savedUser;
         }
     }
 
@@ -53,18 +64,22 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public void addRoleToUser(String username, String roleName) {
+    public void addRoleToUser(String username, RoleEnum roleName) {
         // TODO: Add necessary validations
         log.info("Adding role {} to user {}", roleName, username);
-        AppUser user = userRepo.findByUsername(username);
-        Role role = roleRepo.findByName(roleName);
-        user.getRoles().add(role);
+        Optional<AppUser> user = userRepo.findByUsername(username);
+        if(user.isPresent()) {
+            Role role = roleRepo.findByName(roleName);
+            user.get().getRoles().add(role);
+        }
     }
 
     @Override
     public AppUser getUser(String username) {
-        log.info("Fetching user {}", username);
-        return null;
+        Optional<AppUser> foundUser = userRepo.findByUsername(username);
+        if(foundUser.isPresent()) {
+            return foundUser.get();
+        } else throw new IllegalStateException("User not found");
     }
 
     @Override
@@ -81,8 +96,8 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("user = " + username);
-        AppUser user = userRepo.findByUsername(username);
-        if(user == null) {
+        Optional<AppUser> user = userRepo.findByUsername(username);
+        if(user.isEmpty()) {
             log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
         }
@@ -90,9 +105,9 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
             log.info("User found in the database: {}", username);
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        user.get().getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName().toString()));
         });
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), authorities);
     }
 }

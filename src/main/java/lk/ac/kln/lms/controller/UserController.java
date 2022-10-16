@@ -2,9 +2,13 @@ package lk.ac.kln.lms.controller;
 
 import lk.ac.kln.lms.domain.AppUser;
 import lk.ac.kln.lms.domain.Role;
+import lk.ac.kln.lms.dto.FindUserDto;
+import lk.ac.kln.lms.dto.RegisterUserDto;
+import lk.ac.kln.lms.enums.RoleEnum;
 import lk.ac.kln.lms.service.AppUserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -12,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController @RequiredArgsConstructor @RequestMapping("/api/v1/user")
 public class UserController {
     private final AppUserService userService;
@@ -21,12 +26,20 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
+    @PostMapping("get")
+    public ResponseEntity<AppUser> getUserByUsername(@RequestBody FindUserDto userInfo) {
+        try {
+            return new ResponseEntity<>(userService.getUser(userInfo.getUsername()), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(userService.getUser(userInfo.getUsername()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping("/save")
-    public ResponseEntity<AppUser> saveUser(@RequestBody AppUser user) {
-        System.out.println("user");
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/user/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
-        //return ResponseEntity.ok().body(userService.saveUser(user));
+    public ResponseEntity<AppUser> saveUser(@RequestBody RegisterUserDto user) {
+
+        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
     @PostMapping("/role/save")
@@ -45,5 +58,5 @@ public class UserController {
 @Data
 class RoleToUserForm {
     private String username;
-    private String roleName;
+    private RoleEnum roleName;
 }
