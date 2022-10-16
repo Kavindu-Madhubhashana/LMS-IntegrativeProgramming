@@ -12,6 +12,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Data
+@ToString
 @NoArgsConstructor @AllArgsConstructor
 public class Announcements {
     @Id
@@ -22,8 +23,8 @@ public class Announcements {
     @ManyToOne(fetch = FetchType.EAGER)
     private AppUser lecturer;
 
-   // @ManyToOne(fetch = FetchType.EAGER)
-    //private Course course;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Course course;
 
     @Column(name = "date")
     private Date date;

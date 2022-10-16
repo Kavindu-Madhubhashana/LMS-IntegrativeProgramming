@@ -3,6 +3,8 @@ package lk.ac.kln.lms.controller;
 import lk.ac.kln.lms.domain.AppUser;
 import lk.ac.kln.lms.domain.Role;
 import lk.ac.kln.lms.dto.FindUserDto;
+import lk.ac.kln.lms.dto.RegisterUserDto;
+import lk.ac.kln.lms.enums.RoleEnum;
 import lk.ac.kln.lms.service.AppUserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -35,11 +37,9 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<AppUser> saveUser(@RequestBody AppUser user) {
-        System.out.println("user");
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/user/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
-        //return ResponseEntity.ok().body(userService.saveUser(user));
+    public ResponseEntity<AppUser> saveUser(@RequestBody RegisterUserDto user) {
+
+        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
     @PostMapping("/role/save")
@@ -58,5 +58,5 @@ public class UserController {
 @Data
 class RoleToUserForm {
     private String username;
-    private String roleName;
+    private RoleEnum roleName;
 }

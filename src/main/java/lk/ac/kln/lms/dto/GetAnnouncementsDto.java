@@ -5,15 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnnouncementsDto {
-    private Date date;
-    private String announcement;
-    private Long userId;
+public class GetAnnouncementsDto {
     private String courseCode;
 }

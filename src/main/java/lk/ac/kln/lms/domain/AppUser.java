@@ -18,6 +18,7 @@ public class AppUser {
     private String name;
     private String username;
     private String password;
+    private String email;
     @ManyToMany()
     private Collection<Role> roles = new ArrayList<>();
 }
